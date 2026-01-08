@@ -1,75 +1,34 @@
-/* =========================
-   MAIN.JS
-   Lightweight UX helpers
-   ========================= */
+// Current year in footer
+const yearEl = document.getElementById("year");
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
-document.addEventListener("DOMContentLoaded", function () {
+// Automatic Job Pages Menu
+const jobMenu = document.getElementById("job-menu");
 
-  /* -------------------------
-     Smooth scroll for anchors
-  -------------------------- */
-  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+if (jobMenu) {
+  const jobs = [
+    { name: "Virtual Assistant", slug: "virtual-assistant.html" },
+    { name: "Digital Marketer", slug: "digital-marketer.html" },
+    { name: "Content Writer", slug: "content-writer.html" },
+    { name: "Graphic Designer", slug: "graphic-designer.html" },
+    { name: "Web Developer", slug: "web-developer.html" },
+    { name: "IT Support Specialist", slug: "it-support.html" },
+    { name: "Bookkeeper", slug: "bookkeeper.html" },
+    { name: "Social Media Manager", slug: "social-media-manager.html" }
+  ];
 
-  anchorLinks.forEach(link => {
-    link.addEventListener("click", function (e) {
-      const targetId = this.getAttribute("href");
-      const target = document.querySelector(targetId);
+  let html = `<div class="job-menu">
+                <h3>Remote Job Guides</h3>
+                <ul>`;
 
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
-    });
+  jobs.forEach(job => {
+    html += `<li>
+      <a href="/JobUpskill/jobs/${job.slug}">${job.name}</a>
+    </li>`;
   });
 
-  /* -------------------------
-     CTA click tracking (console)
-     Ready for GA / Plausible
-  -------------------------- */
-  const ctaButtons = document.querySelectorAll(".cta-button");
-
-  ctaButtons.forEach(button => {
-    button.addEventListener("click", function () {
-      console.log("CTA clicked:", this.textContent.trim());
-      // Hook ready for analytics
-      // gtag('event', 'cta_click', { label: this.textContent });
-    });
-  });
-
-  /* -------------------------
-     External links → new tab
-  -------------------------- */
-  const externalLinks = document.querySelectorAll("a[href^='http']");
-
-  externalLinks.forEach(link => {
-    if (!link.href.includes(window.location.hostname)) {
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "nofollow noopener sponsored");
-    }
-  });
-
-  /* -------------------------
-     Lazy reveal sections
-  -------------------------- */
-  const revealElements = document.querySelectorAll(".reveal");
-
-  const revealOnScroll = () => {
-    const windowHeight = window.innerHeight;
-
-    revealElements.forEach(el => {
-      const elementTop = el.getBoundingClientRect().top;
-      const revealPoint = 120;
-
-      if (elementTop < windowHeight - revealPoint) {
-        el.classList.add("visible");
-      }
-    });
-  };
-
-  window.addEventListener("scroll", revealOnScroll);
-  revealOnScroll();
-
-});
+  html += `</ul></div>`;
+  jobMenu.innerHTML = html;
+}
