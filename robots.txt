@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Nausica-20.github.io/JobUpskill/sitemap.xml
