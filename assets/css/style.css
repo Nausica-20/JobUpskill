@@ -214,3 +214,12 @@ footer {
   opacity: 1;
   transform: translateY(0);
    }
+footer a {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+footer a:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
